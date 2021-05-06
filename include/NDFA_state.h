@@ -16,6 +16,7 @@ class NDFA_state
        };
        int id;
        bool stable;
+       string name;
        list<line> trans;
 };
 

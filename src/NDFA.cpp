@@ -146,6 +146,7 @@ NDFA NDFA::get_from_non_expression(string exp,Final_NDFA* fNdfa){
   }
 
     fNdfa->get_state(this->last)->stable = true;
+    fNdfa->get_state(this->last)->name = exp;
   return *this;
 }
 

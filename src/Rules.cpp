@@ -38,15 +38,27 @@ Rules::convert_to_expressions()
             string keyword;
             for(int j=i+1;j<temp.length();j++){
                 if((temp[j]=='}'&&key)||(temp[j]==']'&&temp[j-1]!='\\'&&!key)){
-                  if(keyword!=""&&keyword!=" "&&key){expressions.push_back(Exp_Node("keyword",keyword,false));}
-                  else if(keyword!=""&&keyword!=" "&&!key){expressions.push_back(Exp_Node("punctuations",keyword,false));}
+                  if(keyword!=""&&keyword!=" "&&key){
+                        expressions.push_back(Exp_Node("keyword",keyword,false));
+                        priority.push_back(keyword);
+                  }
+                  else if(keyword!=""&&keyword!=" "&&!key){
+                        expressions.push_back(Exp_Node("punctuations",keyword,false));
+                        priority.push_back(keyword);
+                  }
                     keyword = "";
                     i=j;
                     break;
                 }
                 else if(temp[j]==' '){
-                   if(keyword!=""&&keyword!=" "&&key){expressions.push_back(Exp_Node("keyword",keyword,false));}
-                  else if(keyword!=""&&keyword!=" "&&!key){expressions.push_back(Exp_Node("punctuations",keyword,false));}
+                   if(keyword!=""&&keyword!=" "&&key){
+                        expressions.push_back(Exp_Node("keyword",keyword,false));
+                        priority.push_back(keyword);
+                   }
+                  else if(keyword!=""&&keyword!=" "&&!key){
+                        expressions.push_back(Exp_Node("punctuations",keyword,false));
+                        priority.push_back(keyword);
+                  }
                    keyword = "";
                 }
                 else if(temp[j]=='\\'){
@@ -98,7 +110,8 @@ Rules::convert_to_expressions()
            if(def){Exp_Node tnode = Exp_Node(name,value,false);
                 definitions.push_back(tnode);}
            else{Exp_Node tnode = Exp_Node(name,value,true);
-               expressions.push_back(tnode);}
+               expressions.push_back(tnode);
+               priority.push_back(name);}
 
          }
 
@@ -174,4 +187,12 @@ Rules::resolve_definitions()
         }
   }
 
+}
+
+string Rules::get_priority(string a, string b){
+    list<string>::iterator it;
+    for(it=priority.begin();it!=priority.end();it++){
+        if((*it)==a){return a;}
+        else if((*it)==b){return b;}
+    }
 }

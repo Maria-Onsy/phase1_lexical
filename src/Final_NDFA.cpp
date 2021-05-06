@@ -17,8 +17,8 @@ Final_NDFA::construct_NDFA(list<Exp_Node> expressions){
             Exp_Node ex = *it;
             if(ex.exp){
               temp = temp.get_from_expression(ex.value,this);
-              //name
               this->get_state(temp.last)->stable = true;
+              this->get_state(temp.last)->name = ex.name;
               states.push_back(temp);
             }
             else{
