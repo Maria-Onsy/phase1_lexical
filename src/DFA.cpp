@@ -13,17 +13,22 @@ DFA::construct_DFA(Final_NDFA nd) {
 
 	int start = nd.start;
 	list<NDFA_state> startl = getEps(nd ,start);
+
 	startl.unique();   // remove dublicate states
+	//list<DFA_state :: line> :: iterator prin;
+	// for(prin=s.trans.begin();prin!=s.trans.end();++prin){
+        //cout<<prin->input <<" ";
+   // }
 	DFA_state s;
     list<int> startints;///
     list<NDFA_state> ::iterator getints;///
     for(getints=startl.begin();getints!=startl.end();++getints){///
         startints.push_back((*getints).id);///
     }///
-
+    startints.sort();
 	//assign the list of start states to ids list of start deterministic state
     s.ids .insert(s.ids.end(), startints.begin(), startints.end());
-    allStates.push_back(s);
+    /////allStates.push_back(s);   /////
 	list<NDFA_state> ::iterator it;
 
     queue<DFA_state> q;
@@ -69,9 +74,15 @@ while(!q.empty()){
 
 	validinputs.unique();
 
+            if(validinputs.empty()){  // if final state
+                 allStates.push_back(s);
+                 counter++;
 
+            }
+            else{
             list<char> ::iterator inputit;
 			for (inputit = validinputs.begin(); inputit != validinputs.end(); ++inputit) {  // loop over valid inputs
+
                 list<int> ::iterator nextit;     ///
                 list <int> currentids = s.ids; ///
                 list<int> next;///
@@ -80,11 +91,16 @@ while(!q.empty()){
                     list<NDFA_state::line> ::iterator lineit;
                     list< NDFA_state::line> linel = nd.get_state(*nextit)->trans; ///
                     for (lineit = linel.begin(); lineit != linel.end(); ++lineit) {
-                        if (lineit->input == *inputit) {
+
+                        if ((*lineit).input == *inputit) {
+
                             NDFA_state tmp = *nd.get_state(lineit->to);
                             next.push_back(tmp.id);///
+
                             list<NDFA_state> ep = getEps(nd, lineit->to);
+
                             list<NDFA_state> ::iterator epit;
+
                             for (epit = ep.begin(); epit != ep.end(); ++epit) {  // loop over eps transitions from the destination state and add them to next
                                 next.push_back((*epit).id);  ///
                         }
@@ -94,22 +110,34 @@ while(!q.empty()){
 
                     if (!next.empty()) {
                         next.unique();
-                        DFA_state::line *newl;
-                        DFA_state news;   // next state after entering inputit to the start state
 
-                        news.ids .insert(news.ids .end(), next.begin(), next.end());
+                        next.sort();
 
-                        newl->input = *inputit;
-                        newl->to = &news;
-                        s.trans.push_back(*newl);
-                        q.push(news);
-                        counter++;
-                        allStates.push_back(news);
+                        DFA_state::line newl;
+
+                         newl.input = *inputit;
+
+                        if(exists(next) == true){
+
+                            //DFA_state ex = getexists(next);
+                            newl.to = &tmpstate;
+                        }
+                        else{
+                            DFA_state news;   // next state after entering inputit to the start state
+                            news.ids .insert(news.ids .end(), next.begin(), next.end());
+                            newl.to = &news;
+                            q.push(news);
+                            counter++;
+                        }
+                        s.trans.push_back(newl);
+
+                        allStates.push_back(s);
+
                     }
 
                 }
 
-
+}
 
 
         }
@@ -134,9 +162,30 @@ list<NDFA_state> DFA::getEps(Final_NDFA nd, int state) {
 			}
 		}
 	}
+
 	return eps;
 }
 
 DFA_state* DFA ::getstates(){
     return &allStates.front();
+}
+
+bool DFA ::exists (list<int> next){
+    list<DFA_state> :: iterator stateit;
+    for(stateit =allStates.begin(); stateit != allStates.end(); ++stateit){
+        list<int>:: iterator l1,l2;
+        bool flag = true;
+        for(l1=next.begin(),l2=(*stateit).ids.begin() ; l1!=next.end(),l2!=(*stateit).ids.end() ; ++l1 , ++ l2){
+            if(*l1!=*l2){
+                flag=false;
+            }
+        }
+        if(flag == true && l1== next.end() && l2==(*stateit).ids.end()){
+            tmpstate=*stateit;
+
+            return true;
+        }
+
+    }
+    return false;
 }
