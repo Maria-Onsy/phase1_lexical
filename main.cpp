@@ -3,6 +3,8 @@
 #include "Exp_Node.h"
 #include "Rules.h"
 #include "Final_NDFA.h"
+#include "DFA.h"
+#include "Tokens.h"
 using namespace std;
 
 int main()
@@ -13,18 +15,20 @@ int main()
     rules.convert_to_expressions();
 
     //print expressions
-    cout<<"expresions";
+    /*cout<<"expresions";
     cout<<'\n';
-    list<string> ::iterator it;
-    for(it=rules.priority.begin();it!=rules.priority.end();it++){
-            string t = *it;
-    cout<< '\t' << t;
+    list<Exp_Node> ::iterator it;
+    for(it=rules.expressions.begin();it!=rules.expressions.end();it++){
+            Exp_Node t = *it;
+    cout<< '\t' << t.name;
     cout<<'\n';
-   // cout<< '\t' << t.value;
-     //   cout<<'\n';
-    }
+    cout<< '\t' << t.value;
+        cout<<'\n';
+    }*/
 
     Final_NDFA ndfa = Final_NDFA();
     ndfa.construct_NDFA(rules.expressions);
+
+    Tokens tk;
     return 0;
 }

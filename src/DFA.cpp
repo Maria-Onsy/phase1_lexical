@@ -13,7 +13,7 @@ DFA::construct_DFA(Final_NDFA nd) {
 
 	int start = nd.start;
 	list<NDFA_state> startl = getEps(nd ,start);
-	startl.unique();   // remove dublicate states
+	//startl.unique();   // remove dublicate states
 	DFA_state s;
 
 	//assign the list of start states to ids list of start deterministic state

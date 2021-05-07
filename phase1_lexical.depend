@@ -1,9 +1,11 @@
 # depslib dependency file v1.0
-1620211727 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
+1620391773 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
 	<iostream>
 	"Exp_Node.h"
 	"Rules.h"
 	"Final_NDFA.h"
+	"DFA.h"
+	"Tokens.h"
 
 1620208813 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\exp_node.cpp
 	"Exp_Node.h"
@@ -53,4 +55,34 @@
 	<iostream>
 	"NDFA.h"
 	"Exp_Node.h"
+
+1620337522 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
+	"DFA.h"
+	<iostream>
+	<queue>
+	"NDFA_state.h"
+
+1620391477 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa.h
+	"Final_NDFA.h"
+	"DFA_state.h"
+	"NDFA_state.h"
+	<list>
+
+1620391477 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa_state.h
+	<list>
+	<string>
+	"NDFA_state.h"
+
+1620337522 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa_state.cpp
+	"DFA_state.h"
+
+1620384372 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\tokens.cpp
+	"Tokens.h"
+	<iostream>
+	<fstream>
+
+1620383520 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\tokens.h
+	"DFA.h"
+	<string>
+	<list>
 
