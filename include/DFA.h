@@ -13,11 +13,13 @@ using namespace std;
 class DFA
 {
 public:
-    int num;
+    int counter;
     list<DFA_state> allStates;
     int start;
+    DFA();
     construct_DFA(Final_NDFA nd);
-    list<NDFA_state*> getEps(Final_NDFA nd ,int state);
+    list<NDFA_state> getEps(Final_NDFA nd ,int state);
+    DFA_state* getstates();
 };
 
 #endif // DFA_H
