@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620391773 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
+1620394109 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
 	<iostream>
 	"Exp_Node.h"
 	"Rules.h"
@@ -24,10 +24,10 @@
 	<string>
 	<list>
 
-1620208918 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\ndfa_state.cpp
+1620393983 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\ndfa_state.cpp
 	"NDFA_state.h"
 
-1620305569 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\ndfa_state.h
+1620393968 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\ndfa_state.h
 	<list>
 	<string>
 
@@ -56,7 +56,7 @@
 	"NDFA.h"
 	"Exp_Node.h"
 
-1620337522 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
+1620393670 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
 	"DFA.h"
 	<iostream>
 	<queue>
@@ -68,7 +68,7 @@
 	"NDFA_state.h"
 	<list>
 
-1620391477 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa_state.h
+1620393227 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa_state.h
 	<list>
 	<string>
 	"NDFA_state.h"

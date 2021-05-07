@@ -26,6 +26,7 @@ int main()
         cout<<'\n';
     }*/
 
+
     Final_NDFA ndfa = Final_NDFA();
     ndfa.construct_NDFA(rules.expressions);
 

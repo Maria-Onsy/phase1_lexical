@@ -12,7 +12,7 @@ class DFA_state
 public:
     class line {
     public:
-        DFA_state &to;
+        DFA_state *to;
         char input;
     };
 

@@ -18,6 +18,8 @@ class NDFA_state
        bool stable;
        string name;
        list<line> trans;
+
+     bool operator == (const NDFA_state & nd);
 };
 
 
