@@ -10,7 +10,7 @@ using namespace std;
 int main()
 {
     Rules rules;
-    rules.path="Rules.txt";
+    rules.path="test.txt";
     rules.read_from_file();
     rules.convert_to_expressions();
 
@@ -29,6 +29,9 @@ int main()
     Final_NDFA ndfa = Final_NDFA();
     ndfa.construct_NDFA(rules.expressions);
 
-    Tokens tk;
+    DFA dfa;
+    dfa.construct_DFA(ndfa);
+
+//    Tokens tk;
     return 0;
 }
