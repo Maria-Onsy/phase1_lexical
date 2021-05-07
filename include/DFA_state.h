@@ -16,7 +16,7 @@ public:
         char input;
     };
 
-    list<NDFA_state> ids;
+    list<int> ids;  ///
     bool stable;
     list<line> trans;
 };
