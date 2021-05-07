@@ -97,6 +97,19 @@ while(!q.empty()){
 
     }
 /////
+DFA_state* b = this->getstates();
+     cout <<"\nstate\n";
+        list<DFA_state::line> :: iterator tst;
+        for(tst=b->trans.begin();tst!=b->trans.end();tst++){
+            cout<< "input\n";
+            DFA_state::line ln = *tst;
+            cout<< '\t'<<ln.input;
+            cout<< '\n';
+            cout<<"stability\n";
+            cout<<'\t'<<b->stable;
+            cout<<'\n';
+            b = ln.to;
+        }
 
 }
 

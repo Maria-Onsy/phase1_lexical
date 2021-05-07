@@ -27,8 +27,9 @@ Final_NDFA::construct_NDFA(list<Exp_Node> expressions){
             }
     }
 
-   temp.combine(states,this);
+   temp=temp.combine(states,this);
    this->start = temp.start;
+
 }
 
 
