@@ -12,11 +12,11 @@ class DFA_state
 public:
     class line {
     public:
-        list<int> to;
+        DFA_state &to;
         char input;
     };
 
-    list<NDFA_state*> ids;
+    list<NDFA_state> ids;
     bool stable;
     list<line> trans;
 };
