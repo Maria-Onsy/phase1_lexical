@@ -140,3 +140,4 @@ list<NDFA_state> DFA::getEps(Final_NDFA nd, int state) {
 DFA_state* DFA ::getstates(){
     return &allStates.front();
 }
+

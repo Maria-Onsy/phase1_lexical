@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620414795 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
+1620427208 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
 	<iostream>
 	"Exp_Node.h"
 	"Rules.h"
@@ -56,7 +56,7 @@
 	"NDFA.h"
 	"Exp_Node.h"
 
-1620418232 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
+1620427208 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
 	"DFA.h"
 	<iostream>
 	<queue>
@@ -82,6 +82,20 @@
 	<fstream>
 
 1620383520 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\tokens.h
+	"DFA.h"
+	<string>
+	<list>
+
+1620427174 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\check.cpp
+	"Check.h"
+	"Tokens.h"
+	"DFA_state.h"
+	<string>
+	<list>
+	<iostream>
+
+1620427165 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\check.h
+	"Tokens.h"
 	"DFA.h"
 	<string>
 	<list>

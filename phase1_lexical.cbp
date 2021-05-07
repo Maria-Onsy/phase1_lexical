@@ -42,6 +42,7 @@
 		<Unit filename="include/NDFA_state.h" />
 		<Unit filename="include/Rules.h" />
 		<Unit filename="include/Tokens.h" />
+		<Unit filename="include/check.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/DFA.cpp" />
 		<Unit filename="src/DFA_state.cpp" />
@@ -51,6 +52,7 @@
 		<Unit filename="src/NDFA_state.cpp" />
 		<Unit filename="src/Rules.cpp" />
 		<Unit filename="src/Tokens.cpp" />
+		<Unit filename="src/check.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
