@@ -38,18 +38,6 @@ while(!q.empty()){
     s = q.front();
     q.pop();
 
-   // check if the deter. state is stable or not
-    list<int> :: iterator isstable;    ////
-    for (isstable = s.ids.begin(); isstable != s.ids.end(); ++isstable) {
-       // if((*isstable).stable == true){  ////
-           // s.stable=true;
-       // }
-       if(nd.get_state(*isstable)->stable==true){
-            s.stable=true;
-       }
-    }
-
-
 	list<char> validinputs;   //inputs from the current deter. state
     list<NDFA_state> ll;      // state of non deter. states of the current deter. state(s)
 
@@ -75,6 +63,16 @@ while(!q.empty()){
 	validinputs.unique();
 
             if(validinputs.empty()){  // if final state
+                    // check if the deter. state is stable or not
+                        list<int> :: iterator isstable;    ////
+                        s.stable=false;
+                        for (isstable = s.ids.begin(); isstable != s.ids.end(); ++isstable) {
+
+                            if(nd.get_state(*isstable)->stable){
+                            s.stable=true;
+                            cout<<"am here"<<endl;
+                        }
+                    }
                  allStates.push_back(s);
                  counter++;
 
@@ -129,6 +127,16 @@ while(!q.empty()){
                             q.push(news);
                             counter++;
                         }
+                        // check if the deter. state is stable or not
+                        list<int> :: iterator isstable;    ////
+                        s.stable=false;
+                        for (isstable = s.ids.begin(); isstable != s.ids.end(); ++isstable) {
+
+                            if(nd.get_state(*isstable)->stable){
+                            s.stable=true;
+                            cout<<"am here"<<endl;
+                        }
+                    }
                         s.trans.push_back(newl);
 
                         allStates.push_back(s);
@@ -166,8 +174,8 @@ list<NDFA_state> DFA::getEps(Final_NDFA nd, int state) {
 	return eps;
 }
 
-DFA_state* DFA ::getstates(){
-    return &allStates.front();
+    list<DFA_state> DFA ::getstates(){
+    return allStates;
 }
 
 bool DFA ::exists (list<int> next){
