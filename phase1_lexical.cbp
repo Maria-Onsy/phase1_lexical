@@ -38,6 +38,7 @@
 		<Unit filename="include/DFA_state.h" />
 		<Unit filename="include/Exp_Node.h" />
 		<Unit filename="include/Final_NDFA.h" />
+		<Unit filename="include/Minimization.h" />
 		<Unit filename="include/NDFA.h" />
 		<Unit filename="include/NDFA_state.h" />
 		<Unit filename="include/Rules.h" />
@@ -48,6 +49,7 @@
 		<Unit filename="src/DFA_state.cpp" />
 		<Unit filename="src/Exp_Node.cpp" />
 		<Unit filename="src/Final_NDFA.cpp" />
+		<Unit filename="src/Minimization.cpp" />
 		<Unit filename="src/NDFA.cpp" />
 		<Unit filename="src/NDFA_state.cpp" />
 		<Unit filename="src/Rules.cpp" />

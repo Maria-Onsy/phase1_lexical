@@ -1,1 +1,1 @@
-{int}
+{boolean int float}

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620427208 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
+1620436382 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
 	<iostream>
 	"Exp_Node.h"
 	"Rules.h"
@@ -56,13 +56,13 @@
 	"NDFA.h"
 	"Exp_Node.h"
 
-1620427208 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
+1620436382 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
 	"DFA.h"
 	<iostream>
 	<queue>
 	"NDFA_state.h"
 
-1620391477 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa.h
+1620436382 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa.h
 	"Final_NDFA.h"
 	"DFA_state.h"
 	"NDFA_state.h"
@@ -86,7 +86,7 @@
 	<string>
 	<list>
 
-1620427174 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\check.cpp
+1620436423 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\check.cpp
 	"Check.h"
 	"Tokens.h"
 	"DFA_state.h"
@@ -98,5 +98,12 @@
 	"Tokens.h"
 	"DFA.h"
 	<string>
+	<list>
+
+1620435627 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\minimization.cpp
+	"Minimization.h"
+
+1620435368 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\minimization.h
+	"DFA.h"
 	<list>
 

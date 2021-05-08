@@ -19,7 +19,10 @@ class Minimization
       minimize(DFA dfa);
 
     private:
-        mini(Minimization::group cl,DFA dfa);
+        mini(int id,DFA dfa);
+        int get_class_of_state(int id);
+        bool lines_equal(list<DFA_state::line> t1,list<DFA_state::line> t2);
+        Minimization::group* get_by_id(int id);
 };
 
 #endif // MINIMIZATION_H

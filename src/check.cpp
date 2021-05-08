@@ -20,12 +20,12 @@ Check::Report_Error(int z){
 
 Check::Check(Tokens token,DFA df)
 {
-
+/*
 
 int z=0;
-list<string> line = token.input;
+list<string> l = token.input;
 list<string>:: iterator it;
-for(it = line.begin(); it!=line.end(); it++){
+for(it = l.begin(); it!=l.end(); it++){
  z++;
  bool flag = true;
  string st = *it;
@@ -35,12 +35,20 @@ for(it = line.begin(); it!=line.end(); it++){
  DFA_state* state = df.getstates();
  for(int i=0;i<st.length();i++){
   if(st[i]==' '){continue;}
-  else if(state->trans.front().input == st[i]){      //input is still have path in list
+  list<DFA_state::line> q = state->trans;
+  list<DFA_state::line>:: iterator k;
+  DFA_state::line w = q.front();
+  for(k = q.begin(); k!=q.end(); k++){
+   if(w.input == st[i]){                    //input is still have path in list
+    state = &w.to;
+    //q = w.to->trans;
     s = s + st[i];
+    break;
     //if(state->stable){accepted = state.name; stop = i;}           Needed
     //else{continue;}
+   }
   }
-  else{
+  //else{
     if(accepted != "no"){                         //input have no path and there is an acceptance state
         if (accepted == "id"){                    // if it was an id add it to id table
             list<node>::iterator j;
@@ -54,9 +62,9 @@ for(it = line.begin(); it!=line.end(); it++){
         i = stop+1; s=""; accepted = "no"; state = df.getstates(); continue;
     }
     else{Report_Error(z); i = stop+1; s=""; accepted = "no"; state = df.getstates(); continue;}       //input have no path and no acceptance state, remove char and start again
-  }
+  //}
  }
 }
 
-
+*/
 }

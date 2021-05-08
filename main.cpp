@@ -32,6 +32,28 @@ int main()
     DFA dfa;
     dfa.construct_DFA(ndfa);
 
+    list<DFA_state> b = dfa.getstates();
+     cout <<"\nstate\n";
+        list<DFA_state> :: iterator state;
+        list<DFA_state::line> :: iterator tst;
+        for(state=b.begin();state!=b.end();state++){
+            for(tst=state->trans.begin();tst!=state->trans.end();tst++){
+                cout<< "input\n";
+                DFA_state::line ln = *tst;
+                cout<< '\t'<<ln.input;
+                cout<< '\n';
+                cout<<"stability\n";
+                cout<<'\t'<<state->stable;
+                cout<<'\n';
+
+            }
+            if(state->trans.size()==0){
+                cout<<"stability\n";
+                cout<<'\t'<<state->stable;
+                cout<<'\n';
+            }
+        }
+
 //    Tokens tk;
     return 0;
 }
