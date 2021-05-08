@@ -20,7 +20,7 @@ public:
     DFA();
     construct_DFA(Final_NDFA nd);
     list<NDFA_state> getEps(Final_NDFA nd ,int state);
-    DFA_state* getstates();
+    list<DFA_state> getstates();
     bool exists (list<int>);
     //DFA_state getexists(list<int>);
 };
