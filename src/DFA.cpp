@@ -37,7 +37,11 @@ while(!q.empty()){
 
     s = q.front();
     q.pop();
-
+    /*list<int> :: iterator ch;
+	for(ch=s.ids.begin(); ch != s.ids.end() ; ++ ch){
+        cout<<*ch<<" ";
+	}
+	cout<<endl;*/
 	list<char> validinputs;   //inputs from the current deter. state
     list<NDFA_state> ll;      // state of non deter. states of the current deter. state(s)
 
@@ -61,6 +65,11 @@ while(!q.empty()){
 	}
 
 	validinputs.unique();
+	/*list<char> :: iterator ch;
+	for(ch=validinputs.begin(); ch != validinputs.end() ; ++ ch){
+        cout<<*ch<<" ";
+	}
+	cout<<endl;*/
 
             if(validinputs.empty()){  // if final state
                     // check if the deter. state is stable or not
@@ -70,6 +79,7 @@ while(!q.empty()){
 
                             if(nd.get_state(*isstable)->stable){
                             s.stable=true;
+                            //cout<<"am here"<<endl;
                         }
                     }
                  allStates.push_back(s);
@@ -90,7 +100,7 @@ while(!q.empty()){
                     for (lineit = linel.begin(); lineit != linel.end(); ++lineit) {
 
                         if ((*lineit).input == *inputit) {
-
+                           // cout<<"once"<<endl;
                             NDFA_state tmp = *nd.get_state(lineit->to);
                             next.push_back(tmp.id);///
 
@@ -107,7 +117,11 @@ while(!q.empty()){
 
                     if (!next.empty()) {
                         next.unique();
-
+                        /*list<int> :: iterator nn;
+                    for(nn=next.begin();nn!=next.end();++nn){
+                    cout<<*nn<<" ";
+                }
+                cout<<endl;*/
                         next.sort();
 
                         DFA_state::line newl;
@@ -133,16 +147,23 @@ while(!q.empty()){
 
                             if(nd.get_state(*isstable)->stable){
                             s.stable=true;
-                            cout<<"am here"<<endl;
+                            //cout<<"am here"<<endl;
                         }
                     }
+
                         s.trans.push_back(newl);
 
-                        allStates.push_back(s);
+                       /* list<DFA_state :: line> :: iterator prin;
+                    for(prin=s.trans.begin();prin!=s.trans.end();++prin){
+                    cout<<prin->input <<" ";
+                }*/
+
+                        //allStates.push_back(s);
 
                     }
 
                 }
+                allStates.push_back(s);
 
 }
 
