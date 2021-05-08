@@ -15,7 +15,7 @@ class Rules
         list<string> priority;
         read_from_file();
         convert_to_expressions();
-        string get_priority(string a, string b);
+        string get_priority(list<string> names);
     private:
         list<Exp_Node> definitions;
         resolve_definitions();

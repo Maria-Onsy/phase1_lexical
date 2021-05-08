@@ -1,1 +1,4 @@
-{boolean int float}
+letter = a-z | A-Z
+digit = 0 -9
+id: letter (letter|digit)*
+{int}

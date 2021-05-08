@@ -36,7 +36,7 @@ NDFA NDFA::get_from_expression(string exp,Final_NDFA* fNdfa){
         NDFA prev = temp.back();
         NDFA_state* en = fNdfa->get_state(prev.last);
         NDFA_state::line ltemp;
-        ltemp.input = ' ';
+        ltemp.input =" ";
         ltemp.to = prev.start;
         en->trans.push_back(ltemp);
        }
@@ -45,7 +45,7 @@ NDFA NDFA::get_from_expression(string exp,Final_NDFA* fNdfa){
         NDFA prev = temp.back();
         NDFA_state* en = fNdfa->get_state(prev.last);
         NDFA_state::line ltemp1;
-        ltemp1.input = ' ';
+        ltemp1.input =" ";
         ltemp1.to = prev.start;
         en->trans.push_back(ltemp1);
 
@@ -57,13 +57,13 @@ NDFA NDFA::get_from_expression(string exp,Final_NDFA* fNdfa){
         NDFA_state* newen = fNdfa->add_state();
         newen->stable = false;
         NDFA_state::line ltemp2;
-        ltemp2.input = ' ';
+        ltemp2.input =" ";
         ltemp2.to = newen->id;
         en->trans.push_back(ltemp2);
         temp.back().last = newen->id;
 
         NDFA_state::line ltemp3;
-        ltemp3.input = ' ';
+        ltemp3.input = " ";
         ltemp3.to = newen->id;
         newSt->trans.push_back(ltemp3);
        }
@@ -75,9 +75,23 @@ NDFA NDFA::get_from_expression(string exp,Final_NDFA* fNdfa){
        }
 
     else{
+        bool str =false;
+        string lt;
         if(exp[i]=='\\'){
            if(exp[i+1]=='L'){
                 exp[i+1] = ' ';
+           }
+           else if((exp[i+1]=='A')){
+            str = true;
+            lt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+           }
+            else if((exp[i+1]=='a')){
+            str = true;
+            lt = "abcdefghijklmnopqrstuvwxyz";
+           }
+            else if((exp[i+1]=='0')){
+            str = true;
+            lt = "0123456789";
            }
            i++;
         }
@@ -85,7 +99,11 @@ NDFA NDFA::get_from_expression(string exp,Final_NDFA* fNdfa){
         NDFA_state* st = fNdfa->add_state();
         (*st).stable = false;
         NDFA_state::line l;
-        l.input = exp[i];
+        if(str){
+            l.str = true;
+            l.input = lt;
+        }
+        else{l.input.push_back(exp[i]);}
         NDFA_state* en = fNdfa->add_state();
         en->stable = false;
         l.to = en->id;
@@ -102,7 +120,7 @@ NDFA NDFA::get_from_expression(string exp,Final_NDFA* fNdfa){
           NDFA prev = temp.back();
           NDFA_state* en = fNdfa->get_state(prev.last);
           NDFA_state::line ltemp1;
-          ltemp1.input = ' ';
+          ltemp1.input = " ";
           ltemp1.to = curr.start;
           en->trans.push_back(ltemp1);
           temp.back().last = curr.last;
@@ -126,7 +144,7 @@ NDFA NDFA::get_from_non_expression(string exp,Final_NDFA* fNdfa){
    NDFA_state* st = fNdfa->add_state();
    (*st).stable = false;
    NDFA_state::line l;
-   l.input = exp[0];
+   l.input.push_back(exp[0]);
    NDFA_state* en = fNdfa->add_state();;
    en->stable = false;
    l.to = en->id;
@@ -138,7 +156,7 @@ NDFA NDFA::get_from_non_expression(string exp,Final_NDFA* fNdfa){
     NDFA_state* temp = fNdfa->add_state();
     temp->stable = false;
     NDFA_state::line ltemp;
-    ltemp.input = exp[i];
+    ltemp.input.push_back(exp[i]);
     ltemp.to = temp->id;
     NDFA_state* prev = fNdfa->get_state(this->last);
     prev->trans.push_back(ltemp);
@@ -163,12 +181,12 @@ NDFA NDFA::combine(list<NDFA> states,Final_NDFA* fNdfa){
     for(it=states.begin();it!=states.end();it++){
     NDFA prev = *it;
     NDFA_state::line ltemp1;
-    ltemp1.input = ' ';
+    ltemp1.input = " ";
     ltemp1.to = prev.start;
     newSt->trans.push_back(ltemp1);
 
      NDFA_state::line ltemp2;
-     ltemp2.input = ' ';
+     ltemp2.input = " ";
      ltemp2.to = newen->id;
      NDFA_state* en = fNdfa->get_state(prev.last);
      en->trans.push_back(ltemp2);

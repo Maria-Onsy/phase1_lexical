@@ -13,9 +13,11 @@ public:
     class line {
     public:
         DFA_state *to;
-        char input;
+        string input;
     };
 
+    int id;
+    string name;
     list<int> ids;  ///
     bool stable;
     list<line> trans;

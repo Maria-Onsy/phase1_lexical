@@ -6,10 +6,10 @@
 
 DFA::DFA()
 {
-   counter = 0;
+//   counter = 0;
 }
 
-DFA::construct_DFA(Final_NDFA nd) {
+DFA::construct_DFA(Final_NDFA nd,Rules rl) {
 
 	int start = nd.start;
 	list<NDFA_state> startl = getEps(nd ,start);
@@ -19,7 +19,7 @@ DFA::construct_DFA(Final_NDFA nd) {
 	// for(prin=s.trans.begin();prin!=s.trans.end();++prin){
         //cout<<prin->input <<" ";
    // }
-	DFA_state s;
+	DFA_state* s = add_state();
     list<int> startints;///
     list<NDFA_state> ::iterator getints;///
     for(getints=startl.begin();getints!=startl.end();++getints){///
@@ -27,11 +27,11 @@ DFA::construct_DFA(Final_NDFA nd) {
     }///
     startints.sort();
 	//assign the list of start states to ids list of start deterministic state
-    s.ids .insert(s.ids.end(), startints.begin(), startints.end());
+    s->ids .insert(s->ids.end(), startints.begin(), startints.end());
     /////allStates.push_back(s);   /////
 	list<NDFA_state> ::iterator it;
 
-    queue<DFA_state> q;
+    queue<DFA_state*> q;
     q.push(s);
 while(!q.empty()){
 
@@ -42,12 +42,12 @@ while(!q.empty()){
         cout<<*ch<<" ";
 	}
 	cout<<endl;*/
-	list<char> validinputs;   //inputs from the current deter. state
+	list<string> validinputs;   //inputs from the current deter. state
     list<NDFA_state> ll;      // state of non deter. states of the current deter. state(s)
 
     list<NDFA_state> startints2;///
     list<int> ::iterator getints;///
-    for(getints=s.ids.begin();getints!=s.ids.end();++getints){///
+    for(getints=s->ids.begin();getints!=s->ids.end();++getints){///
         startints2.push_back(*nd.get_state((*getints)));///
     }///
     ll.insert(ll.end(), startints2.begin(), startints2.end());
@@ -58,7 +58,7 @@ while(!q.empty()){
 		list<NDFA_state::line> linel;
 		linel.insert(linel.end(), (*it).trans.begin(), (*it).trans.end());
 		for (lineit = linel.begin(); lineit != linel.end(); ++lineit) {
-			if (lineit->input != ' ') {
+			if (lineit->input != " ") {
 				validinputs.push_back(lineit->input);
 			}
 		}
@@ -74,32 +74,37 @@ while(!q.empty()){
             if(validinputs.empty()){  // if final state
                     // check if the deter. state is stable or not
                         list<int> :: iterator isstable;    ////
-                        s.stable=false;
-                        for (isstable = s.ids.begin(); isstable != s.ids.end(); ++isstable) {
+                        s->stable=false;
+                        list<string> names;
+                        for (isstable = s->ids.begin(); isstable != s->ids.end(); ++isstable) {
 
                             if(nd.get_state(*isstable)->stable){
-                            s.stable=true;
+                            s->stable=true;
+                            names.push_back(nd.get_state(*isstable)->name);
                             //cout<<"am here"<<endl;
                         }
                     }
-                 allStates.push_back(s);
-                 counter++;
+                    if(s->stable==true){
+                    names.unique();
+                    if(names.size()==1){s->name = names.front();}
+                    else{s->name = rl.get_priority(names);}
+                    }
+                // counter++;
 
             }
             else{
-            list<char> ::iterator inputit;
+            list<string> names;
+            list<string> ::iterator inputit;
 			for (inputit = validinputs.begin(); inputit != validinputs.end(); ++inputit) {  // loop over valid inputs
-
                 list<int> ::iterator nextit;     ///
-                list <int> currentids = s.ids; ///
+                list <int> currentids = s->ids; ///
                 list<int> next;///
                 for (nextit = currentids.begin(); nextit != currentids.end(); ++nextit) {  // iterate over NDFS nodes of the current DFA node
 
                     list<NDFA_state::line> ::iterator lineit;
                     list< NDFA_state::line> linel = nd.get_state(*nextit)->trans; ///
                     for (lineit = linel.begin(); lineit != linel.end(); ++lineit) {
-
-                        if ((*lineit).input == *inputit) {
+                        if (((*lineit).input).find(*inputit)!= std::string::npos) {
                            // cout<<"once"<<endl;
                             NDFA_state tmp = *nd.get_state(lineit->to);
                             next.push_back(tmp.id);///
@@ -126,32 +131,48 @@ while(!q.empty()){
 
                         DFA_state::line newl;
 
-                         newl.input = *inputit;
-
-                        if(exists(next) == true){
-
-                            //DFA_state ex = getexists(next);
-                            newl.to = &tmpstate;
+                        if((*inputit).length()>1){
+                            string newInput = *inputit;
+                            list<string>::iterator inpIt;
+                            for(inpIt=validinputs.begin();inpIt!=validinputs.end();inpIt++){
+                                    if((*inpIt).length()==1){
+                                        int pos = newInput.find((*inpIt).front());
+                                        if(pos!= std::string::npos){
+                                         newInput.replace(pos,1,"");
+                                        }
+                                    }
+                            }
+                         newl.input = newInput;
                         }
                         else{
-                            DFA_state news;   // next state after entering inputit to the start state
-                            news.ids .insert(news.ids .end(), next.begin(), next.end());
-                            newl.to = &news;
+                         newl.input = *inputit;
+                        }
+
+                        if((exists(next) == true)||(equalst(next,s)== true)){
+
+                            //DFA_state ex = getexists(next);
+                            newl.to = tmpstate;
+                        }
+                        else{
+                            DFA_state* news =add_state();   // next state after entering inputit to the start state
+                            news->ids.insert(news->ids .end(), next.begin(), next.end());
+                            newl.to = news;
                             q.push(news);
-                            counter++;
+                            //counter++;
                         }
                         // check if the deter. state is stable or not
                         list<int> :: iterator isstable;    ////
-                        s.stable=false;
-                        for (isstable = s.ids.begin(); isstable != s.ids.end(); ++isstable) {
+                        s->stable=false;
+                        for (isstable = s->ids.begin(); isstable != s->ids.end(); ++isstable) {
 
                             if(nd.get_state(*isstable)->stable){
-                            s.stable=true;
+                            s->stable=true;
+                            names.push_back(nd.get_state(*isstable)->name);
                             //cout<<"am here"<<endl;
                         }
                     }
 
-                        s.trans.push_back(newl);
+                        s->trans.push_back(newl);
 
                        /* list<DFA_state :: line> :: iterator prin;
                     for(prin=s.trans.begin();prin!=s.trans.end();++prin){
@@ -163,7 +184,13 @@ while(!q.empty()){
                     }
 
                 }
-                allStates.push_back(s);
+                if(s->stable==true){
+                        names.unique();
+                       if(names.size()==1){s->name = names.front();}
+                       else{s->name = rl.get_priority(names);}
+                       }
+                //allStates.push_back(s);
+                names.clear();
 
 }
 
@@ -185,7 +212,7 @@ list<NDFA_state> DFA::getEps(Final_NDFA nd, int state) {
 		std::list<NDFA_state::line> ::iterator it;
 		list<NDFA_state::line> l = curr.trans;
 		for (it = l.begin(); it != l.end(); ++it) {
-			if (it->input == ' ') {
+			if (it->input == " ") {
 				q.push(it->to);
 			}
 		}
@@ -209,11 +236,48 @@ bool DFA ::exists (list<int> next){
             }
         }
         if(flag == true && l1== next.end() && l2==(*stateit).ids.end()){
-            tmpstate=*stateit;
+            tmpstate=&(*stateit);
 
             return true;
         }
 
     }
     return false;
+}
+
+bool DFA ::equalst (list<int> next,DFA_state* st){
+
+        list<int>:: iterator l1,l2;
+        bool flag = true;
+        for(l1=next.begin(),l2=st->ids.begin() ; l1!=next.end(),l2!=st->ids.end() ; ++l1 , ++ l2){
+            if(*l1!=*l2){
+                flag=false;
+            }
+        }
+        if(flag == true && l1== next.end() && l2==st->ids.end()){
+            tmpstate = st;
+
+            return true;
+        }
+
+    return false;
+}
+
+DFA_state* DFA::get_state(int id){
+ list<DFA_state> ::iterator it;
+  for(it=allStates.begin();it!=allStates.end();it++){
+    if((*it).id == id){
+        return &(*it);
+    }
+  }
+  return nullptr;
+}
+
+DFA_state* DFA::add_state(){
+  DFA_state state;
+  state.id = num;
+  num ++;
+  allStates.push_back(state);
+  DFA_state* ptr = &allStates.back();
+  return ptr;
 }

@@ -40,11 +40,11 @@ Rules::convert_to_expressions()
                 if((temp[j]=='}'&&key)||(temp[j]==']'&&temp[j-1]!='\\'&&!key)){
                   if(keyword!=""&&keyword!=" "&&key){
                         expressions.push_back(Exp_Node("keyword",keyword,false));
-                        priority.push_back(keyword);
+                      //  priority.push_back(keyword);
                   }
                   else if(keyword!=""&&keyword!=" "&&!key){
                         expressions.push_back(Exp_Node("punctuations",keyword,false));
-                        priority.push_back(keyword);
+                      //  priority.push_back(keyword);
                   }
                     keyword = "";
                     i=j;
@@ -53,11 +53,11 @@ Rules::convert_to_expressions()
                 else if(temp[j]==' '){
                    if(keyword!=""&&keyword!=" "&&key){
                         expressions.push_back(Exp_Node("keyword",keyword,false));
-                        priority.push_back(keyword);
+                       // priority.push_back(keyword);
                    }
                   else if(keyword!=""&&keyword!=" "&&!key){
                         expressions.push_back(Exp_Node("punctuations",keyword,false));
-                        priority.push_back(keyword);
+                        //priority.push_back(keyword);
                   }
                    keyword = "";
                 }
@@ -120,6 +120,18 @@ Rules::convert_to_expressions()
     if(!definitions.empty()){
         resolve_definitions();
     }
+
+    list<Exp_Node>::iterator exitt;
+    list<string> key;
+    for(exitt=expressions.begin();exitt!=expressions.end();exitt++){
+        if(!((*exitt).exp)){
+            key.push_back((*exitt).value);
+        }
+    }
+    if(!key.empty()){
+        priority.insert(priority.begin(),key.begin(),key.end());
+    }
+
 }
 
 
@@ -166,33 +178,39 @@ Rules::resolve_definitions()
             t.value = value;
         }
 
+
         string valued1 = "a-z";
         string valued2 = "A-Z";
         string valued3 = "0-9";
          for(int pos = value.find(valued1);pos!= std::string::npos;pos = value.find(valued1)){
-            string rep1 = "(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)";
+            string rep1 = "\\a";
             value.replace(pos,valued1.length(),rep1);
             t.value = value;
         }
+
         for(int pos = value.find(valued2);pos!= std::string::npos;pos = value.find(valued2)){
-            string rep2 = "(A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)";
+            string rep2 = "\\A";
             value.replace(pos,valued2.length(),rep2);
             t.value = value;
         }
+
         for(int pos = value.find(valued3);pos!= std::string::npos;pos = value.find(valued3)){
-            string rep3 = "(0|1|2|3|4|5|6|7|8|9)";
+            string rep3 = "\\0";
             value.replace(pos,valued3.length(),rep3);
             t.value = value;
         }
+
         }
   }
 
 }
 
-string Rules::get_priority(string a, string b){
+string Rules::get_priority(list<string> names){
     list<string>::iterator it;
-    for(it=priority.begin();it!=priority.end();it++){
-        if((*it)==a){return a;}
-        else if((*it)==b){return b;}
-    }
+    list<string>::iterator it2;
+    for(it2=priority.begin();it2!=priority.end();it2++){
+      for(it=names.begin();it!=names.end();it++){
+         if((*it)==(*it2)){return *it;}
+      }
+   }
 }

@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1620436382 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
+1620507102 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
 	<iostream>
 	"Exp_Node.h"
 	"Rules.h"
 	"Final_NDFA.h"
 	"DFA.h"
 	"Tokens.h"
+	"Minimization.h"
 
 1620208813 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\exp_node.cpp
 	"Exp_Node.h"
@@ -14,12 +15,12 @@
 	<string>
 	<list>
 
-1620308832 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\rules.cpp
+1620482682 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\rules.cpp
 	"Rules.h"
 	<iostream>
 	<fstream>
 
-1620306680 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\rules.h
+1620478580 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\rules.h
 	"Exp_Node.h"
 	<string>
 	<list>
@@ -27,11 +28,11 @@
 1620393983 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\ndfa_state.cpp
 	"NDFA_state.h"
 
-1620393968 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\ndfa_state.h
+1620472277 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\ndfa_state.h
 	<list>
 	<string>
 
-1620396973 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\ndfa.cpp
+1620473256 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\ndfa.cpp
 	"NDFA.h"
 	<iostream>
 	"NDFA_state.h"
@@ -56,19 +57,20 @@
 	"NDFA.h"
 	"Exp_Node.h"
 
-1620437299 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
+1620506249 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\dfa.cpp
 	"DFA.h"
 	<iostream>
 	<queue>
 	"NDFA_state.h"
 
-1620436382 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa.h
+1620505909 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa.h
 	"Final_NDFA.h"
 	"DFA_state.h"
 	"NDFA_state.h"
+	"Rules.h"
 	<list>
 
-1620412721 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa_state.h
+1620483944 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\dfa_state.h
 	<list>
 	<string>
 	"NDFA_state.h"
@@ -100,10 +102,12 @@
 	<string>
 	<list>
 
-1620435627 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\minimization.cpp
+1620506967 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\minimization.cpp
 	"Minimization.h"
+	<iostream>
+	<fstream>
 
-1620435368 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\minimization.h
+1620504325 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\minimization.h
 	"DFA.h"
 	<list>
 

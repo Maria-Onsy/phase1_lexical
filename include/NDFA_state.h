@@ -12,7 +12,8 @@ class NDFA_state
        class line{
          public:
            int to;
-           char input;
+           string input;
+           bool str = false;
        };
        int id;
        bool stable;
