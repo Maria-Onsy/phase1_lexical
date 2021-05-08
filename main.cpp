@@ -11,7 +11,7 @@ using namespace std;
 int main()
 {
     Rules rules;
-    rules.path="test.txt";
+    rules.path="Rules.txt";
     rules.read_from_file();
     rules.convert_to_expressions();
 

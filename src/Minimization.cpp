@@ -7,7 +7,6 @@ using std::cerr;
 Minimization::minimize(DFA dfa)
 {
     list<DFA_state>::iterator it;
-    Minimization::group st;
     Minimization::group nonst;
     list<int> ist;
     list<int> inonst;
@@ -19,17 +18,49 @@ Minimization::minimize(DFA dfa)
             inonst.push_back(it->id);
         }
     }
-    st.id = 1;
-    nonst.id = 0;
-    num = 2;
-    st.states = ist;
-    nonst.states = inonst;
-    classes.push_back(st);
-    classes.push_back(nonst);
-    mini(nonst.id,dfa);
-    mini(st.id,dfa);
 
-    list<Minimization::group>::iterator clit;
+    nonst.id = 0;
+    num = 1;
+    nonst.states = inonst;
+    classes.push_back(nonst);
+
+    list<list<int>> fst;
+    list<int>::iterator stst;
+    list<int> remain;
+    list<int> newc;
+    while(!ist.empty()){
+    stst=ist.begin();
+    remain.push_back(*stst);
+    string n = dfa.get_state(*stst)->name;
+    for(stst++;stst!=ist.end();stst++){
+        if(dfa.get_state(*stst)->name!=n){
+            newc.push_back(*stst);
+        }
+        else{remain.push_back(*stst);}
+    }
+    if(!remain.empty()){
+    fst.push_back(remain);}
+    ist.clear();
+    ist.insert(ist.begin(),newc.begin(),newc.end());
+    remain.clear();
+    newc.clear();
+   }
+
+
+  list<list<int>>::iterator fit;
+  for(fit=fst.begin();fit!=fst.end();fit++){
+    Minimization::group st;
+    st.id = num;
+    num++;
+    st.states = (*fit);
+    classes.push_back(st);
+  }
+   list<Minimization::group>::iterator clit;
+   for(clit=classes.begin();clit!=classes.end();clit++){
+       mini((*clit).id,dfa);
+    }
+
+
     for(clit=classes.begin();clit!=classes.end();clit++){
         DFA_state cl;
         cl.id = (*clit).id;
@@ -46,14 +77,14 @@ Minimization::minimize(DFA dfa)
         for(l=(*stt).trans.begin();l!=(*stt).trans.end();l++){
             DFA_state::line temp;
             temp.input=(*l).input;
-            temp.to = dfa.get_state(get_class_of_state(((*l).to)->id));
+            temp.to = minimal.get_state(get_class_of_state(((*l).to)->id));
             newlines.push_back(temp);
         }
         (*stt).trans.clear();
         (*stt).trans.insert((*stt).trans.begin(),newlines.begin(),newlines.end());
     }
 
-    int start = dfa.allStates.front().id;
+    int start = minimal.allStates.front().id;
     int startClass = get_class_of_state(start);
     minimal.start = startClass;
 
@@ -137,7 +168,8 @@ bool Minimization::lines_equal(list<DFA_state::line> t1,list<DFA_state::line> t2
             int s2 = get_class_of_state((l1.to)->id);
             if(s1==s2){
             found = true;
-           break;}
+          // break;
+           }
         }
         else{
             temp2.push_back(*lit2);
@@ -152,6 +184,7 @@ bool Minimization::lines_equal(list<DFA_state::line> t1,list<DFA_state::line> t2
       if(!temp2.empty()){
       temp.insert(temp.end(),temp2.begin(),temp2.end());
       }
+      temp2.clear();
    }
    if(!temp.empty()){
     equ = false;
@@ -289,20 +322,25 @@ Minimization::print_table(DFA dfa){
   list<DFA_state>::iterator stit;
   int s = minimal.allStates.size();
   for(int i=0;i<s;i++){
-    DFA_state* tpst = dfa.get_state(i);
+    DFA_state* tpst = minimal.get_state(i);
      list<DFA_state :: line> ::iterator lt;
      list<DFA_state::line> linet = tpst->trans;
-     if(linet.empty()){continue;}
+     //if(linet.empty()){continue;}
     inp = "State:\t";
      inp+= to_string(tpst->id);
      inp+="\t\t";
      bool stable = tpst->stable;
      if(stable){
-        inp+="(acceptance state: ";
+        inp+="(acceptance state: \"";
         inp+= tpst->name;
-        inp+= ")";
+        inp+= "\")";
      }
      inp+="\n";
+     if(linet.empty()){
+         inp+="-----------------------------------------------------------------------";
+         table.push_back(inp);
+         inp="";
+         continue;}
      for(lt=linet.begin();lt!=linet.end();lt++){
         string h = (*lt).input;
         list<string>::iterator sit2,sit1;
