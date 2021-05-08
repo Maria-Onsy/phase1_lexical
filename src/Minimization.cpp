@@ -86,8 +86,39 @@ int Minimization::get_class_of_state(int id){
 
 
 bool Minimization::lines_equal(list<DFA_state::line> t1,list<DFA_state::line> t2){
+   bool equ = true;
    list<DFA_state::line>::iterator lit1;
+   list<DFA_state::line>::iterator lit2;
+   list<DFA_state::line> temp;
+   temp.insert(temp.end(),t2.begin(),t2.end());
+   list<DFA_state::line> temp2;
+   for(lit1=t1.begin();lit1!=t1.end();lit1++){
+     DFA_state::line l1 = *lit1;
+     bool found = false;
+      for(lit2=temp.begin();lit2!=temp.end();lit2++){
+        if(((*lit2).input == l1.input)&&(((*lit2).to)->id == (l1.to)->id)){
+            found = true;
+           break;
+        }
+        else{
+            temp2.push_back(*lit2);
+        }
+      }
+      if(!found){
+        equ = false;
+        return equ;
+      }
 
+      temp.clear();
+      if(!temp2.empty()){
+      temp.insert(temp.end(),temp2.begin(),temp2.end());
+      }
+   }
+   if(!temp.empty()){
+    equ = false;
+   }
+
+ return equ;
 }
 
 Minimization::group* Minimization::get_by_id(int id){
