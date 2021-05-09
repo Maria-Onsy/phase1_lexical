@@ -5,12 +5,6 @@
 using std::fstream;
 using std::cerr;
 
-Tokens::get_tokens(string file_name,DFA df)
-{
- read_from_file(file_name);
- //get tokens
- write_to_file();
-}
 
 Tokens::read_from_file(string name)
 {
@@ -32,7 +26,7 @@ Tokens::write_to_file()
 {
   fstream file;
   string text;
-  file.open("output.txt",ios::out);
+  file.open("Output.txt",ios::out);
   if(!file){
         cerr << "Error: file could not be created" << endl;
         exit(1);

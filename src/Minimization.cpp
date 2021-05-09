@@ -93,6 +93,7 @@ Minimization::minimize(DFA dfa)
     write_to_file();
 }
 
+
 Minimization::mini(int id,DFA dfa){
     bool changed = false;
     Minimization::group* cl = get_by_id(id);
@@ -140,6 +141,7 @@ Minimization::mini(int id,DFA dfa){
       }
 }
 
+
 int Minimization::get_class_of_state(int id){
  list<Minimization::group>::iterator it;
  for(it=classes.begin();it!=classes.end();it++){
@@ -169,7 +171,6 @@ bool Minimization::lines_equal(list<DFA_state::line> t1,list<DFA_state::line> t2
             int s2 = get_class_of_state((l1.to)->id);
             if(s1==s2){
             found = true;
-          // break;
            }
         }
         else{
@@ -193,6 +194,7 @@ bool Minimization::lines_equal(list<DFA_state::line> t1,list<DFA_state::line> t2
 
  return equ;
 }
+
 
 Minimization::group* Minimization::get_by_id(int id){
   list<Minimization::group>::iterator it;
@@ -310,14 +312,6 @@ Minimization::print_table(DFA dfa){
 	}
 
 	string inp ;
-	/*string tab = "\t";
-	for(sit=printedInputs.begin();sit!=printedInputs.end();sit++){
-        inp += tab;
-        inp += *sit;
-	}
-	  table.push_back(inp);*/
-
-
 
 //print classes
   list<DFA_state>::iterator stit;

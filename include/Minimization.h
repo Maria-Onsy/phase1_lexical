@@ -8,16 +8,10 @@ using namespace std;
 class Minimization
 {
     public:
-       class line{
-          public:
-            string input;
-            int to;
-        };
        class group{
         public:
          int id;
          list<int> states;
-         list<Minimization::line> trans;
        };
       int num;
       list<group> classes;
@@ -33,7 +27,6 @@ class Minimization
         Minimization::group* get_by_id(int id);
         print_table(DFA dfa);
         write_to_file();
-        get_states(DFA dfa,int id,list<DFA_state::line> lines);
         bool contain(list<DFA_state::line> lst,DFA_state::line l);
 };
 

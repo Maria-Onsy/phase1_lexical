@@ -14,12 +14,11 @@ using namespace std;
 class DFA
 {
 public:
-   // int counter;
     int num=0;
     DFA_state* tmpstate;
     list<DFA_state> allStates;
     int start;
-    DFA();
+
     construct_DFA(Final_NDFA nd,Rules rl);
     list<NDFA_state> getEps(Final_NDFA nd ,int state);
     list<DFA_state> getstates();
@@ -27,7 +26,6 @@ public:
     bool equalst (list<int> next,DFA_state* st);
     DFA_state* get_state(int id);
     DFA_state* add_state();
-    //DFA_state getexists(list<int>);
 };
 
 #endif // DFA_H

@@ -18,7 +18,7 @@ public:
 
     int id;
     string name;
-    list<int> ids;  ///
+    list<int> ids;
     bool stable;
     list<line> trans;
 };

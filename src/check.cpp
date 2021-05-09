@@ -1,13 +1,13 @@
-#include "Check.h"
+#include "check.h"
 #include "Tokens.h"
 #include "DFA_state.h"
 
-#include <string>
+#include <string.h>
 #include <list>
 using namespace std;
 #include <iostream>
 
-Check::Report_Error(int z){
+check::Report_Error(int z){
  bool flag = false;
  list<int> error;
  list<int>::iterator i;
@@ -15,12 +15,12 @@ Check::Report_Error(int z){
   int t = *i;
   if(t == z){flag = false;}
  }
- if(flag){cout << "There is an error in line" << z << endl;}
+ if(flag){error.push_back(z); cout << "There is an error in line" << z << endl;}
 }
 
-Check::Check(Tokens token,DFA df)
+
+check::Check(Tokens token,DFA df)
 {
-/*
 
 int z=0;
 list<string> l = token.input;
@@ -32,25 +32,23 @@ for(it = l.begin(); it!=l.end(); it++){
  string accepted = "no";      //to indicate if there is an accepted token (last accepted token)
  string s = "";
  int stop = 0;                //to keep track of index of last accepted token
- DFA_state* state = df.getstates();
+ DFA_state* state = df.get_state(df.start);
+
  for(int i=0;i<st.length();i++){
   if(st[i]==' '){continue;}
   list<DFA_state::line> q = state->trans;
   list<DFA_state::line>:: iterator k;
-  DFA_state::line w = q.front();
   for(k = q.begin(); k!=q.end(); k++){
-   if(w.input == st[i]){                    //input is still have path in list
-    state = &w.to;
-    //q = w.to->trans;
+   if((*k).input.find(st[i]) != std::string::npos){                    //input is still have path in list
+    state = (*k).to;
     s = s + st[i];
-    break;
-    //if(state->stable){accepted = state.name; stop = i;}           Needed
-    //else{continue;}
+    if(state->stable){ accepted = state->name; stop = i;}           //Needed
+        break;
    }
   }
-  //else{
-    if(accepted != "no"){                         //input have no path and there is an acceptance state
-        if (accepted == "id"){                    // if it was an id add it to id table
+  if(st[i+1] == ' ' || i == st.length()-1 ){
+    if( accepted != "no" ){                         //input have no path and there is an acceptance state
+        if ( accepted == "id" ){                    // if it was an id add it to id table
             list<node>::iterator j;
             for(j = ids.begin(); j!=ids.end(); j++){
                 node t = *j;
@@ -59,12 +57,14 @@ for(it = l.begin(); it!=l.end(); it++){
             if(flag){node n; n.name = s; ids.push_back(n);}
         }
         token.output.push_back(accepted);       //add it to output
-        i = stop+1; s=""; accepted = "no"; state = df.getstates(); continue;
+        i = stop; s=""; accepted = "no"; state = df.get_state(df.start); continue;
     }
-    else{Report_Error(z); i = stop+1; s=""; accepted = "no"; state = df.getstates(); continue;}       //input have no path and no acceptance state, remove char and start again
-  //}
+    else{Report_Error(z); i = stop+1; s=""; accepted = "no"; state = df.get_state(df.start); continue;}       //input have no path and no acceptance state, remove char and start again
+ }
  }
 }
 
-*/
+token.write_to_file();
 }
+
+

@@ -11,11 +11,9 @@ class Tokens
     public:
         list<string> input;
         list<string> output;
-        get_tokens(string file_name,DFA df);
-
-    private:
         read_from_file(string name);
         write_to_file();
+
 };
 
 #endif // TOKENS_H

@@ -7,7 +7,7 @@
 #include <list>
 using namespace std;
 
-class Check
+class check
 {
      public:
        class node{
@@ -17,10 +17,11 @@ class Check
            string name;
        };
        list<node> ids;
+       Check(Tokens token, DFA df);
 
     private:
         Report_Error(int z);
-        Check(Tokens token, DFA df);
+
 };
 
 #endif // CHECK_H

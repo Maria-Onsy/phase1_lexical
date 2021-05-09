@@ -21,6 +21,7 @@ Rules::read_from_file()
     file.close();
 }
 
+
 Rules::convert_to_expressions()
 {
     list<string> ::iterator it;
@@ -40,11 +41,9 @@ Rules::convert_to_expressions()
                 if((temp[j]=='}'&&key)||(temp[j]==']'&&temp[j-1]!='\\'&&!key)){
                   if(keyword!=""&&keyword!=" "&&key){
                         expressions.push_back(Exp_Node("keyword",keyword,false));
-                      //  priority.push_back(keyword);
                   }
                   else if(keyword!=""&&keyword!=" "&&!key){
                         expressions.push_back(Exp_Node("punctuations",keyword,false));
-                      //  priority.push_back(keyword);
                   }
                     keyword = "";
                     i=j;
@@ -53,11 +52,9 @@ Rules::convert_to_expressions()
                 else if(temp[j]==' '){
                    if(keyword!=""&&keyword!=" "&&key){
                         expressions.push_back(Exp_Node("keyword",keyword,false));
-                       // priority.push_back(keyword);
                    }
                   else if(keyword!=""&&keyword!=" "&&!key){
                         expressions.push_back(Exp_Node("punctuations",keyword,false));
-                        //priority.push_back(keyword);
                   }
                    keyword = "";
                 }
