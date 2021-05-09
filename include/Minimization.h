@@ -34,6 +34,7 @@ class Minimization
         print_table(DFA dfa);
         write_to_file();
         get_states(DFA dfa,int id,list<DFA_state::line> lines);
+        bool contain(list<DFA_state::line> lst,DFA_state::line l);
 };
 
 #endif // MINIMIZATION_H

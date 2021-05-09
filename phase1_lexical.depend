@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1620515724 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
+1620515784 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\main.cpp
 	<iostream>
 	"Exp_Node.h"
 	"Rules.h"
@@ -102,12 +102,12 @@
 	<string>
 	<list>
 
-1620515680 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\minimization.cpp
+1620518964 source:c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\src\minimization.cpp
 	"Minimization.h"
 	<iostream>
 	<fstream>
 
-1620504325 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\minimization.h
+1620518387 c:\users\maria onsy\desktop\csed\third year\compiler\project\phase1_lexical\include\minimization.h
 	"DFA.h"
 	<list>
 

@@ -78,6 +78,7 @@ Minimization::minimize(DFA dfa)
             DFA_state::line temp;
             temp.input=(*l).input;
             temp.to = minimal.get_state(get_class_of_state(((*l).to)->id));
+            if(contain(newlines,temp)){continue;}
             newlines.push_back(temp);
         }
         (*stt).trans.clear();
@@ -297,7 +298,7 @@ Minimization::print_table(DFA dfa){
              }
              else{
                 enter = true;
-                 org = "/(0->9/)-{";
+                 org = "(0->9)-{";
              }
             }
             minusst.pop_back();
@@ -344,12 +345,14 @@ Minimization::print_table(DFA dfa){
      for(lt=linet.begin();lt!=linet.end();lt++){
         string h = (*lt).input;
         list<string>::iterator sit2,sit1;
+        inp+="\'";
         for(sit2=validinputs.begin(),sit1=printedInputs.begin();sit2!=validinputs.end(),sit2!=printedInputs.end();sit2++,sit1++){
             if((*sit2)==h){
                 inp+=(*sit1);
                 break;
             }
         }
+        inp+="\' ";
         inp+="-->";
         inp+=to_string(((*lt).to)->id);
         inp+="\t";
@@ -378,4 +381,19 @@ Minimization::write_to_file()
     file<< *it<<endl;
   }
   file.close();
+}
+
+
+bool Minimization::contain(list<DFA_state::line> lst,DFA_state::line l){
+    bool found = false;
+    string in = l.input;
+    int to = (l.to)->id;
+   list<DFA_state::line>::iterator it;
+   for(it=lst.begin();it!=lst.end();it++){
+       if(((*it).input==in)&&(((*it).to)->id == to)){
+        found = true;
+        return found;
+       }
+   }
+   return found;
 }
